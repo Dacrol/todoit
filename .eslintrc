@@ -1,0 +1,8 @@
+{
+  "extends": ["standard"],
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "no-multiple-empty-lines": "off"
+  }
+}
