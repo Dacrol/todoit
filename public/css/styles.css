@@ -11,15 +11,16 @@ body {
 .lists {
   position: relative;
   margin-left: 1%;
+  text-align: center;
 }
 
 .list-column {
   position: absolute;
-  margin: 0 2%;
   left: 0;
   right: 0;
-  /* background: #f0f0f0; */
-  border-radius: 2px;
+  /* margin: 0 2%; */
+  /* width: 45%; */
+  /* border-radius: 2px; */
   z-index: 1;
 }
 
@@ -45,6 +46,10 @@ body {
 
 .list-column.todo .list-column-header {
   background: #287253;
+}
+
+.list-column.done .list-column-header {
+  background: #6e252b;
 }
 
 .list-column-content {
