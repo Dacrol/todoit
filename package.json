@@ -5,7 +5,7 @@
   "scripts": {
     "test": "eslint .",
     "start": "node app.js",
-    "sync": "node --inspect app.js | browser-sync start --proxy localhost:3000 --no-online --files \"www, views, public, !**/*.json, !**/*.css\""
+    "sync": "node --inspect app.js | browser-sync start --proxy localhost:3000 --no-online --files \"www, views, public, !**/*.json\""
   },
   "repository": "git@github.com:Dacrol/todoit.git",
   "author": "Jonas A <jonas.ahrens@gmail.com>",
