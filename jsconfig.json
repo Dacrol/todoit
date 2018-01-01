@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "jsx": "preserve",
+        "checkJs": true,
+        "baseUrl": ".",
+        "paths": {
+          "muuri/*": ["./node_modules/muuri/*"]
+        },
+        "maxNodeModuleJsDepth": 4
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
+    ]
+}
