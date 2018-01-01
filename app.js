@@ -2,6 +2,7 @@
 const express = require('express')
 const flexjson = require('jsonflex')()
 const compression = require('compression')
+const path = require('path')
 
 const app = express()
 
@@ -9,11 +10,9 @@ app.use(compression())
 app.use(flexjson)
 app.use(express.static('public'))
 
-/* eslint-disable */
-app.get(/^[^\.]*$/, (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+app.get(/^[^.]*$/, (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'))
 })
-/* eslint-enable */
 
 // Start server
 app.listen(3000, () =>
