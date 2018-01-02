@@ -61,6 +61,8 @@ body {
   position: absolute;
   width: 100%;
   margin: 5px 0;
+  cursor: pointer;
+  cursor: -webkit-grab;
 }
 .list-item.muuri-item-releasing {
   z-index: 9998;
@@ -68,6 +70,7 @@ body {
 .list-item.muuri-item-dragging {
   z-index: 9999;
   cursor: move;
+  cursor: -webkit-grabbing;
 }
 .list-item.muuri-item-hidden {
   z-index: 0;
@@ -80,7 +83,7 @@ body {
   background: #fff;
   border-radius: 4px;
   font-size: 17px;
-  cursor: pointer;
+  /* cursor: pointer; */
   -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
   box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
 }
@@ -88,4 +91,17 @@ body {
   .list-item-content {
     text-align: center;
   }
+}
+
+
+.list-item-content:focus {
+  color: #495057;
+  background-color: #fff;
+  outline: 0;
+  border-color: #73ace9;
+  box-shadow: 0px 0px 8px 0.2em rgba(78, 255, 222, 0.5);
+}
+
+.frozen {
+  cursor: text;
 }
