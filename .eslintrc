@@ -1,6 +1,14 @@
 {
   "extends": ["standard"],
   "parser": "babel-eslint",
+  "env": {
+    "jquery": true
+  },
+  "globals": {
+    "Muuri": true,
+    "List": true,
+    "Item": true
+  },
   "rules": {
     "strict": 0,
     "no-multiple-empty-lines": "off"
