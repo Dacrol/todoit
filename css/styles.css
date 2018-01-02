@@ -45,11 +45,11 @@ body {
 }
 
 .list-column.todo .list-column-header {
-  background: #287253;
+  background: #247757;
 }
 
 .list-column.done .list-column-header {
-  background: #6e252b;
+  background: #852222;
 }
 
 .list-column-content {
