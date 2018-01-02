@@ -15,6 +15,7 @@ class List extends Muuri {
       dragReleaseEasing: 'ease',
       dragStartPredicate: {distance: 6, delay: 0, handle: '.list-item:not(.frozen)'}
     }
+
     super(container, options)
 
     this.on('dragStart', function (item) {

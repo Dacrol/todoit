@@ -105,3 +105,12 @@ body {
 .frozen {
   cursor: text;
 }
+
+.new-item {
+  margin: -13px 0 -8px;
+  font-size: 20px;
+}
+
+.new-item > * {
+  cursor: pointer;
+}
