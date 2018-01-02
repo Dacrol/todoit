@@ -3,7 +3,8 @@
 const listsGrid = new Muuri('.lists', {
   layoutDuration: 400,
   layoutEasing: 'ease',
-  dragEnabled: true,
+  dragEnabled: true, // Set false to disable dragging todo-lists
+  dragSort: true,
   dragSortInterval: 0,
   dragStartPredicate: {
     handle: '.list-column-header'
