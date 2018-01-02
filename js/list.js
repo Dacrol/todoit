@@ -13,7 +13,7 @@ class List extends Muuri {
       dragContainer: document.body,
       dragReleaseDuration: 400,
       dragReleaseEasing: 'ease',
-      dragStartPredicate: {distance: 0, delay: 0, handle: '.list-item:not(.frozen)'}
+      dragStartPredicate: {distance: 6, delay: 0, handle: '.list-item:not(.frozen)'}
     }
     super(container, options)
 
