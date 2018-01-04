@@ -29,10 +29,9 @@ class List extends Muuri {
           grid.refreshItems()
         })
       })
-      .on('layoutStart', function () {
+      .on('layoutStart', function (items) {
         listsGrid.refreshItems().layout()
+        console.log(items)
       })
-
-    // itemGrids.push(this)
   }
 }

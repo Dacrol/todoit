@@ -22,7 +22,6 @@ var editing = false
 refreshEventHandlers()
 
 $('.new-item').children().click(function () {
-  console.log($(this))
   const parentGridIndex = listsGrid.getItems($(this).closest('.list-column').get())[0]._id - itemGrids.length
   createNewItem(parentGridIndex)
 })
@@ -34,6 +33,20 @@ $(document).keypress(function (event) {
     event.preventDefault()
   }
 })
+
+/**
+ * Creates a new item in the selected itemGrid
+ */
+function createNewItem (gridNo) {
+  let newItem = new Item(gridNo, 0)
+  let newGridItem = itemGrids[gridNo].add($((newItem).template).css({display: 'none'}).get(), {index: 0})
+  itemGrids[gridNo].show(newGridItem)
+  $(newGridItem[0].getElement()).data('item', newItem)
+  refreshEventHandlers()
+  console.log(newGridItem[0].getElement())
+  $(newGridItem[0]._child).focus()
+  editing = true
+}
 
 // TODO: Only run once per item
 /**
@@ -52,7 +65,6 @@ function refreshEventHandlers () {
   })
 
   $('.list-item').mousedown(function (event) {
-    console.log('!')
     if (!$(this).hasClass('frozen')) {
       event.preventDefault()
       if (editing) {
@@ -75,16 +87,6 @@ function refreshEventHandlers () {
       }
     }
   })
-}
-/**
- * Creates a new item in the selected itemGrid
- */
-function createNewItem (gridNo) {
-  let newItem = itemGrids[gridNo].add($((new Item($(this).parent)).template).css({display: 'none'}).get(), {index: 0})
-  itemGrids[gridNo].show(newItem)
-  refreshEventHandlers()
-  $(newItem[0]._child).focus()
-  editing = true
 }
 
 /**
