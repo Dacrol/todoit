@@ -1,5 +1,6 @@
 body {
   font-family: 'Armata', Arial, Helvetica, sans-serif;
+  /* font-family: 'Encode Sans Expanded', Arial, Helvetica, sans-serif; */
   padding-top: 5rem;
 }
 
@@ -113,4 +114,8 @@ body {
 
 .new-item > * {
   cursor: pointer;
+}
+
+.item-body {
+  font-size: 16px;
 }

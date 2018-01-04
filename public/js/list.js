@@ -32,6 +32,7 @@ class List extends Muuri {
       .on('layoutStart', function () {
         listsGrid.refreshItems().layout()
       })
+
     // itemGrids.push(this)
   }
 }
