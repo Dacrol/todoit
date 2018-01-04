@@ -34,7 +34,7 @@ function refreshAllGrids () {
 
 function restoreArchivedItem () {
   if (archivedItems.length > 0) {
-    let restoredItem = archivedItems.shift()
+    let restoredItem = archivedItems.pop()
     restoredItem.archived = false
     Item.restoreItems(restoredItem, itemGrids)
     localStorage.setItem('archivedItems', JSON.stringify(archivedItems))
