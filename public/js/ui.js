@@ -37,6 +37,7 @@ function restoreArchivedItem () {
     let restoredItem = archivedItems.shift()
     restoredItem.archived = false
     Item.restoreItems(restoredItem, itemGrids)
+    localStorage.setItem('archivedItems', JSON.stringify(archivedItems))
   }
 }
 
