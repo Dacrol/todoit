@@ -1,0 +1,146 @@
+body {
+  font-family: 'Armata', Arial, Helvetica, sans-serif;
+  /* font-family: 'Encode Sans Expanded', Arial, Helvetica, sans-serif; */
+  padding-top: 5rem;
+}
+
+.list-container {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.lists {
+  position: relative;
+  margin-left: 1%;
+  text-align: center;
+}
+
+.list-column {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* margin: 0 2%; */
+  /* width: 45%; */
+  /* border-radius: 2px; */
+  z-index: 1;
+}
+
+.list-column.muuri-item-releasing {
+  z-index: 2;
+}
+.list-column.muuri-item-dragging {
+  z-index: 3;
+  cursor: move;
+}
+
+.list-column-header {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  overflow: hidden;
+  padding: 0 20px;
+  text-align: center;
+  background: #333;
+  color: #fff;
+  border-radius: 3px 3px 0 0;
+}
+
+.list-column.todo .list-column-header {
+  background: #247757;
+}
+
+.list-column.done .list-column-header {
+  background: #852222;
+}
+
+.list-column-content {
+  position: relative;
+  border: 10px solid transparent;
+  min-height: 15px;
+}
+.list-item {
+  position: absolute;
+  width: 100%;
+  margin: 5px 0;
+  cursor: pointer;
+  cursor: -webkit-grab;
+}
+.list-item.muuri-item-releasing {
+  z-index: 9998;
+}
+.list-item.muuri-item-dragging {
+  z-index: 9999;
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
+.list-item.muuri-item-hidden {
+  z-index: 0;
+}
+.list-item-content {
+  color: #353535;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 17px;
+  /* cursor: pointer; */
+  -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+}
+@media (max-width: 600px) {
+  .list-item-content {
+    text-align: center;
+  }
+}
+
+
+.list-item-content:focus {
+  color: #495057;
+  background-color: #fff;
+  outline: 0;
+  border-color: #73ace9;
+  box-shadow: 0px 0px 8px 0.2em rgba(78, 255, 222, 0.5);
+  transition: all 400ms;
+}
+
+.frozen {
+  cursor: text;
+}
+
+.new-item {
+  margin: -13px 0 -8px;
+  font-size: 20px;
+}
+
+.new-item > * {
+  cursor: pointer;
+}
+
+.item-body {
+  font-size: 16px;
+}
+
+.delete {
+  display: none;
+}
+
+.delete::after {
+    right: 4px;
+    top: 0;
+    position: absolute;
+    content: "\f068";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    line-height: 16px;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+}
+
+.restore {
+  display: none;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  cursor: pointer;
+}

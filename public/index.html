@@ -1,24 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>To Do It</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/libs/bootstrap.min.css">
-    <!-- Application specific CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
-  </head>
-  <body>
 
-    
+<head>
+  <title>To Do It</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <!-- <link rel="stylesheet" href="./css/libs/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="./css/libs/bootstrap-slate.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Armata">
+  <link rel="stylesheet" href="./css/libs/fontawesome/css/fontawesome-all.min.css">
+  <!-- Application specific CSS -->
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
 
+<body>
+  <main>
+
+      <div class="mt-2">
+        <div class="container list-container">
+          <div class="row lists">
+            <div class="col-6 list-column todo">
+              <div class="card">
+                <div class="card-header list-column-header">To do</div>
+                <div class="card-body">
+                  <div class="new-item">
+                      <i class="fas fa-plus"></i>
+                  </div>
+                  <div class="card-text list-column-content">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 list-column done">
+              <div class="card">
+                <div class="card-header list-column-header">Done</div>
+                <div class="card-body">
+                    <div class="new-item">
+                        &nbsp;
+                    </div>
+                  <div class="card-text list-column-content">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="restore">
+        <i class="fas fa-undo"></i>
+      </div>
+    </main>
     <!-- JavaScript libraries -->
     <script src="/jsonflex.js"></script>
-    <script src="/js/libs/jquery-3.2.1.min.js"></script>
-    <script src="/js/libs/popper-1.12.9.min.js"></script>
-    <script src="/js/libs/bootstrap.min.js"></script>
+    <script src="./js/libs/jquery-3.2.1.min.js"></script>
+    <!-- <script src="./js/libs/popper.min.js"></script> -->
+    <script src="./js/libs/bootstrap.min.js"></script>
+    <script src="./js/libs/web-animations.min.js"></script>
+    <script src="./js/libs/hammer.min.js"></script>
+    <script src="./js/libs/muuri.min.js"></script>
     <!-- Application specific JavaScript -->
-    <script src="/js/main.js"></script>
-  </body>
+    <script src="./js/item.js"></script>
+    <script src="./js/list.js"></script>
+    <script src="./js/ui.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
 </html>
