@@ -1,5 +1,5 @@
 class Item {
-  constructor (container, body) {
+  constructor (containerID, index, body) {
     this.body = body
     this.archived = false
   }
@@ -15,5 +15,3 @@ class Item {
     return template
   }
 }
-
-// itemGrids[0].refreshItems().layout()
