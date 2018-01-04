@@ -1,33 +1,25 @@
 
 // Setup Muuri
 
-const listsGrid = new Muuri('.lists', {
-  layoutDuration: 400,
-  layoutEasing: 'ease',
-  dragEnabled: true, // Set false to disable dragging todo-lists
-  dragSort: true,
-  dragSortInterval: 0,
-  dragStartPredicate: {
-    handle: '.list-column-header'
-  },
-  dragReleaseDuration: 600,
-  dragReleaseEasing: 'ease'
-}).on('layoutEnd', () => {
-  if (!editing) {
-    saveAllItems()
-    // console.log(itemsToArray())
-  }
-})
+const listsGrid = List.createListsGrid()
 
 const itemGrids = [];
 [].push.apply(itemGrids, $('.list-column-content').get().map((container) => {
   return new List(container, itemGrids, listsGrid)
 }))
 
+const archivedItems = JSON.parse(localStorage.getItem('archivedItems')) || []
+
 var editing = false
-refreshEventHandlers()
+
 $(document).ready(function () {
   loadAllItems()
+  refreshEventHandlers()
+  showOrHideRestoreButton()
+})
+
+$('.restore').click(function () {
+  restoreArchivedItem()
 })
 
 $('.new-item').children().click(function () {
@@ -42,64 +34,6 @@ $(document).keypress(function (event) {
     event.preventDefault()
   }
 })
-
-/**
- * Creates a new item in the selected itemGrid
- */
-function createNewItem (gridNo) {
-  let newItem = new Item(gridNo, 0)
-  let newGridItem = itemGrids[gridNo].add($((newItem).template).css({display: 'none'}).get(), {index: 0})
-  itemGrids[gridNo].show(newGridItem)
-  $(newGridItem[0].getElement()).data('item', newItem)
-  refreshEventHandlers()
-  $(newGridItem[0]._child).focus()
-  editing = true
-}
-
-// TODO: Only run once per item
-/**
- * Refresh the event handlers for all list-items
- */
-function refreshEventHandlers () {
-  $('.list-item-content').each(function () { this.addEventListener('input', () => { refreshAllGrids() }) })
-
-  $('.list-item').click(function () {
-    $(this).addClass('frozen')
-    $(this).children().first().focus()
-    if (!editing) {
-      selectEndOfNode($(this).children().first().get()[0])
-    }
-    editing = true
-  })
-
-  $('.list-item').mousedown(function (event) {
-    if (!$(this).hasClass('frozen')) {
-      event.preventDefault()
-      if (editing) {
-        $('.frozen').each(function () { $(this).children().first().blur() })
-        editing = false
-      }
-    }
-  })
-
-  $('.list-item-content').focusout(function () {
-    if (editing) {
-      $(this).parent().removeClass('frozen')
-      clearSelect()
-      editing = false
-      if (!(/\w/.test($(this).text()))) {
-        itemGrids.forEach((grid) => {
-          grid.remove($(this).parent()[0])
-        })
-        $(this).parent().remove()
-      }
-    }
-    if (!editing) {
-      saveAllItems()
-      // console.log(itemsToArray())
-    }
-  })
-}
 
 /**
  * Clears any selections
@@ -133,3 +67,94 @@ function refreshAllGrids () {
   itemGrids.forEach((grid) => { grid.refreshItems().layout() })
 }
 
+function restoreArchivedItem () {
+  if (archivedItems.length > 0) {
+    let restoredItem = archivedItems.shift()
+    restoredItem.archived = false
+    Item.restoreItems(restoredItem, itemGrids)
+  }
+}
+
+function showOrHideRestoreButton () {
+  if (archivedItems.length > 0) {
+    $('.restore').fadeIn(200)
+  } else {
+    $('.restore').fadeOut(400)
+  }
+}
+
+// TODO: Only run once per item (works fine without it though)
+/**
+ * Refresh the event handlers for all list-items
+ */
+function refreshEventHandlers () {
+  $('.list-item-content').each(function () { this.addEventListener('input', () => { refreshAllGrids() }) })
+
+  $('.delete').click(function () {
+    let item = $(this).parent().data('item')
+    console.log(item)
+    if (item) {
+      item.archived = true
+      archivedItems.push(item)
+      localStorage.setItem('archivedItems', JSON.stringify(archivedItems))
+      itemGrids.forEach((grid) => {
+        grid.remove($(this).parent()[0])
+      })
+      $(this).parent().remove()
+    }
+  })
+
+  $('.list-item').click(function () {
+    $(this).addClass('frozen')
+    $(this).children().first().focus()
+    if (!editing) {
+      selectEndOfNode($(this).children().first().get()[0])
+    }
+    editing = true
+  })
+
+  $('.list-item').mousedown(function (event) {
+    // console.log($(this))
+    if (!$(this).hasClass('frozen')) {
+      event.preventDefault()
+      if (editing) {
+        $('.frozen').each(function () { $(this).children().first().blur() })
+        editing = false
+      }
+    }
+  })
+
+  $('.list-item').hover(function () {
+    console.log($(this))
+    $(this).children('.delete').fadeIn(200)
+  }, function () {
+    if (!$(this).hasClass('frozen')) {
+      $(this).children('.delete').fadeOut(200)
+    }
+  })
+
+  $('.list-item-content').focusout(function () {
+    if (editing) {
+      setTimeout(() => {
+        $(this).parent().removeClass('frozen')
+      }, 250) // Add a delay to have time to register clicks on .frozen > .delete
+      $('.delete').fadeOut(400)
+      // $(this).parent().removeClass('frozen')
+      clearSelect()
+      editing = false
+      if (!(/\w/.test($(this).text()))) {
+        itemGrids.forEach((grid) => {
+          grid.remove($(this).parent()[0])
+        })
+        $(this).parent().remove()
+      }
+    }
+    if (!editing) {
+      saveAllItems()
+      // console.log(itemsToArray())
+    }
+  }).focus(function () {
+    $(this).parent().children('.delete').fadeIn(200)
+    // console.log($(this))
+  })
+}
