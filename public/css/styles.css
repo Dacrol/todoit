@@ -138,9 +138,10 @@ body {
 }
 
 .restore {
+  display: none;
   font-size: 20px;
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 12px;
   cursor: pointer;
 }
