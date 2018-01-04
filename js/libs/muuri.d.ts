@@ -25,4 +25,5 @@
 declare class Muuri {
   constructor(element: any, options: object);
   on(...args: any[]): any;
+  getItems(...args: any[]): any;
 }
