@@ -1,4 +1,3 @@
-JSON._classes(List)
 
 // Setup Muuri
 
@@ -13,6 +12,11 @@ const listsGrid = new Muuri('.lists', {
   },
   dragReleaseDuration: 600,
   dragReleaseEasing: 'ease'
+}).on('layoutEnd', () => {
+  if (!editing) {
+    saveAllItems()
+    // console.log(itemsToArray())
+  }
 })
 
 const itemGrids = [];
@@ -22,6 +26,9 @@ const itemGrids = [];
 
 var editing = false
 refreshEventHandlers()
+$(document).ready(function () {
+  loadAllItems()
+})
 
 $('.new-item').children().click(function () {
   const parentGridIndex = listsGrid.getItems($(this).closest('.list-column').get())[0]._id - itemGrids.length
@@ -45,7 +52,6 @@ function createNewItem (gridNo) {
   itemGrids[gridNo].show(newGridItem)
   $(newGridItem[0].getElement()).data('item', newItem)
   refreshEventHandlers()
-  console.log(newGridItem[0].getElement())
   $(newGridItem[0]._child).focus()
   editing = true
 }
@@ -88,6 +94,10 @@ function refreshEventHandlers () {
         $(this).parent().remove()
       }
     }
+    if (!editing) {
+      saveAllItems()
+      // console.log(itemsToArray())
+    }
   })
 }
 
@@ -122,3 +132,4 @@ function selectEndOfNode (node) {
 function refreshAllGrids () {
   itemGrids.forEach((grid) => { grid.refreshItems().layout() })
 }
+
