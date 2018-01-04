@@ -38,4 +38,26 @@ class List extends Muuri {
         Item.updateIndices(this.itemGrids)
       })
   }
+
+  static createListsGrid () {
+    return new Muuri('.lists', {
+      layoutDuration: 400,
+      layoutEasing: 'ease',
+      dragEnabled: true, // Set false to disable dragging todo-lists
+      dragSort: true,
+      dragSortInterval: 0,
+      dragStartPredicate: {
+        handle: '.list-column-header'
+      },
+      dragReleaseDuration: 600,
+      dragReleaseEasing: 'ease'
+    }).on('layoutEnd', () => {
+      if (!editing) {
+        setTimeout(() => {
+          saveAllItems()
+          showOrHideRestoreButton()
+        }, 401) // Give the animation time to finish
+      }
+    })
+  }
 }

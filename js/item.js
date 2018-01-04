@@ -10,8 +10,11 @@ class Item {
     const template =
     `
     <div class="list-item">
+
       <div contenteditable="true" class="list-item-content"><span class="item-body">${this.body ? this.body : '\u200B'}</span>
+
       </div>
+      <span contenteditable="false" class="delete"></span>
     </div>
     `
     return template
@@ -43,6 +46,27 @@ class Item {
       })
     })
   }
+  static restoreItems (items, grids = itemGrids) {
+    let singleItem = false
+    if (!Array.isArray(items)) {
+      items = [items]
+      singleItem = true
+    }
+    items.sort((a, b) => { return a.index - b.index })
+    items.forEach((i) => {
+      let item = new Item(i.gridIndex, i.index, i.body)
+
+      let newGridItem = grids[item.gridIndex].add(
+        singleItem
+          ? $(item.template).css({display: 'none'}).get()
+          : $(item.template).get(),
+        {index: item.index}
+      )
+      $(newGridItem[0].getElement()).data('item', item)
+    })
+    refreshEventHandlers()
+    grids.forEach((grid) => { grid.show() })
+  }
 }
 
 function itemsToArray () {
@@ -57,21 +81,36 @@ function itemsToArray () {
   return arr
 }
 
+// Global functions:
+
 function saveAllItems () {
   localStorage.setItem('items', JSON.stringify(itemsToArray()))
 }
 
 function loadAllItems () {
   const items = localStorage.getItem('items')
-  restoreItems(JSON.parse(items), itemGrids)
+  if (items) {
+    Item.restoreItems(JSON.parse(items), itemGrids)
+  }
 }
 
-function restoreItems (items, itemGrids) {
-  items.forEach((i) => {
-    let item = new Item(i.gridIndex, i.index, i.body)
-    let newGridItem = itemGrids[item.gridIndex].add($(item.template).get(), {index: item.index})
-    $(newGridItem[0].getElement()).data('item', item)
-  })
+function clearStorage () {
+  localStorage.removeItem('items')
+  localStorage.removeItem('archivedItems')
+}
+
+
+/**
+ * Creates a new item in the selected itemGrid
+ */
+function createNewItem (gridNo) {
+  let newItem = new Item(gridNo, 0)
+  let newGridItem = itemGrids[gridNo].add($((newItem).template).css({display: 'none'}).get(), {index: 0})
+  itemGrids[gridNo].show(newGridItem)
+  $(newGridItem[0].getElement()).data('item', newItem)
   refreshEventHandlers()
-  itemGrids.forEach((grid) => { grid.show() })
+  setTimeout(() => {
+    $(newGridItem[0]._child).focus()
+  }, 400)
+  editing = true
 }
