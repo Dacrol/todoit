@@ -17,6 +17,8 @@ class List extends Muuri {
     }
 
     super(container, options)
+    this.listsGrid = listsGrid
+    this.itemGrids = itemGrids
 
     this.on('dragStart', function (item) {
       item.getElement().style.width = item.getWidth() + 'px'
@@ -29,9 +31,11 @@ class List extends Muuri {
           grid.refreshItems()
         })
       })
-      .on('layoutStart', function (items) {
+      .on('layoutStart', function () {
         listsGrid.refreshItems().layout()
-        console.log(items)
+      })
+      .on('layoutEnd', () => { // Don't bind "this"
+        Item.updateIndices(this.itemGrids)
       })
   }
 }
