@@ -1,3 +1,5 @@
+JSON._classes(List)
+
 // Setup Muuri
 
 const listsGrid = new Muuri('.lists', {

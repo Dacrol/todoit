@@ -1,6 +1,6 @@
 // Require
 const express = require('express')
-const flexjson = require('jsonflex')()
+const flexjson = require('jsonflex')({jsonDir: '/public/json'})
 const compression = require('compression')
 const path = require('path')
 
