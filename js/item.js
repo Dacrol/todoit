@@ -2,6 +2,8 @@ class Item {
   constructor (gridIndex, index, body) {
     this.body = body
     this.archived = false
+    this.gridIndex = gridIndex
+    this.index = index
   }
 
   get template () {
@@ -48,6 +50,7 @@ function itemsToArray () {
   $('.list-item').each(function () {
     let itemInstance = $(this).data('item')
     if (typeof itemInstance !== 'undefined') {
+      itemInstance.body = $(this).children('.list-item-content').text().trim()
       arr.push(itemInstance)
     }
   })
@@ -55,5 +58,20 @@ function itemsToArray () {
 }
 
 function saveAllItems () {
-  JSON._save('items', itemsToArray())
+  localStorage.setItem('items', JSON.stringify(itemsToArray()))
+}
+
+function loadAllItems () {
+  const items = localStorage.getItem('items')
+  restoreItems(JSON.parse(items), itemGrids)
+}
+
+function restoreItems (items, itemGrids) {
+  items.forEach((i) => {
+    let item = new Item(i.gridIndex, i.index, i.body)
+    let newGridItem = itemGrids[item.gridIndex].add($(item.template).get(), {index: item.index})
+    $(newGridItem[0].getElement()).data('item', item)
+  })
+  refreshEventHandlers()
+  itemGrids.forEach((grid) => { grid.show() })
 }

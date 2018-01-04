@@ -56,7 +56,7 @@ body {
 .list-column-content {
   position: relative;
   border: 10px solid transparent;
-  min-height: 95px;
+  min-height: 15px;
 }
 .list-item {
   position: absolute;
