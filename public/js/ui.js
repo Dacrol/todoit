@@ -59,9 +59,11 @@ function refreshEventHandlers () {
   $('.delete').click(function () {
     let item = $(this).parent().data('item')
     if (item) {
-      item.archived = true
-      archivedItems.push(item)
-      localStorage.setItem('archivedItems', JSON.stringify(archivedItems))
+      if (/\w/.test(item.body) && !(typeof item.body === 'undefined')) {
+        item.archived = true
+        archivedItems.push(item)
+        localStorage.setItem('archivedItems', JSON.stringify(archivedItems))
+      }
       itemGrids.forEach((grid) => {
         grid.remove($(this).parent()[0])
       })
