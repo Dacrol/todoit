@@ -1,8 +1,7 @@
 {
   "eslint.enable": true,
-  "prettier.eslintIntegration": false,
+  "prettier.eslintIntegration": true,
   "search.exclude": {
     "**/libs/**": true
-  },
-  "eslint.autoFixOnSave": true
+  }
 }
