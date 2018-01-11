@@ -103,9 +103,10 @@ function clearStorage () {
 /**
  * Creates a new item in the selected itemGrid
  */
+
 function createNewItem (gridNo) {
   let newItem = new Item(gridNo, 0)
-  let newGridItem = itemGrids[gridNo].add($((newItem).template).css({display: 'none'}).get(), {index: 0})
+  let newGridItem = itemGrids[gridNo].add($((newItem).template).css({display: 'none'}).addClass('frozen').get(), {index: 0})
   itemGrids[gridNo].show(newGridItem)
   $(newGridItem[0].getElement()).data('item', newItem)
   refreshEventHandlers()
