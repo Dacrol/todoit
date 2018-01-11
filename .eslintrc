@@ -7,10 +7,12 @@
   "globals": {
     "Muuri": true,
     "List": true,
-    "Item": true
+    "Item": true,
+    "editing": true
   },
   "rules": {
     "strict": 0,
-    "no-multiple-empty-lines": "off"
+    "no-multiple-empty-lines": "off",
+    "no-undef": "off"
   }
 }
