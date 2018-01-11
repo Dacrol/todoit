@@ -67,6 +67,25 @@ class Item {
     refreshEventHandlers()
     grids.forEach((grid) => { grid.show() })
   }
+
+  /**
+ * Creates a new item in the selected itemGrid
+ *
+ * @static
+ * @param {number} gridNo Index of parent grid
+ * @memberof Item
+ */
+  static createNewItem (gridNo) {
+    let newItem = new Item(gridNo, 0)
+    let newGridItem = itemGrids[gridNo].add($((newItem).template).css({display: 'none'}).addClass('frozen').get(), {index: 0})
+    itemGrids[gridNo].show(newGridItem)
+    $(newGridItem[0].getElement()).data('item', newItem)
+    refreshEventHandlers()
+    setTimeout(() => {
+      $(newGridItem[0]._child).focus()
+    }, 400)
+    editing = true
+  }
 }
 
 function itemsToArray () {
@@ -99,18 +118,3 @@ function clearStorage () {
   localStorage.removeItem('archivedItems')
 }
 
-
-/**
- * Creates a new item in the selected itemGrid
- */
-function createNewItem (gridNo) {
-  let newItem = new Item(gridNo, 0)
-  let newGridItem = itemGrids[gridNo].add($((newItem).template).css({display: 'none'}).get(), {index: 0})
-  itemGrids[gridNo].show(newGridItem)
-  $(newGridItem[0].getElement()).data('item', newItem)
-  refreshEventHandlers()
-  setTimeout(() => {
-    $(newGridItem[0]._child).focus()
-  }, 400)
-  editing = true
-}

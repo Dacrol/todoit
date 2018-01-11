@@ -22,7 +22,8 @@ $('.restore').click(function () {
 
 $('.new-item').children().click(function () {
   const parentGridIndex = listsGrid.getItems($(this).closest('.list-column').get())[0]._id - itemGrids.length
-  createNewItem(parentGridIndex)
+  Item.createNewItem(parentGridIndex)
+  editing = true
 })
 
 $(document).keypress(function (event) {
