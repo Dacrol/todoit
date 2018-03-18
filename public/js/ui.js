@@ -59,7 +59,7 @@ function refreshEventHandlers () {
   $('.delete').click(function () {
     let item = $(this).parent().data('item')
     if (item) {
-      if (/\w/.test(item.body) && !(typeof item.body === 'undefined')) {
+      if (/\S/.test(item.body) && !(typeof item.body === 'undefined')) {
         item.archived = true
         archivedItems.push(item)
         localStorage.setItem('archivedItems', JSON.stringify(archivedItems))
@@ -107,7 +107,7 @@ function refreshEventHandlers () {
       // $(this).parent().removeClass('frozen')
       clearSelect()
       editing = false
-      if (!(/\w/.test($(this).text()))) {
+      if (!(/\S/.test($(this).text()))) {
         itemGrids.forEach((grid) => {
           grid.remove($(this).parent()[0])
         })
